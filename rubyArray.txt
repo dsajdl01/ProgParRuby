@@ -1,0 +1,68 @@
+irb(main):001:0> a[0] = 0
+NameError: undefined local variable or method `a' for main:Object
+	from (irb):1
+	from /usr/bin/irb:12:in `<main>'
+
+irb(main):002:0> a = []
+=> []
+irb(main):003:0> a[0] = 0
+=> 0
+irb(main):004:0> a[0]
+=> 0
+irb(main):005:0> a[0].class
+=> Fixnum
+irb(main):006:0> a.class
+=> Array
+irb(main):007:0> a[2].class
+=> NilClass
+
+irb(main):008:0> [1].class
+=> Array
+irb(main):009:0> [1].methods.include?(:[])
+=> true
+//but it does not work with values:
+irb(main):012:0> [0].methods.include?(:0)
+SyntaxError: (irb):12: syntax error, unexpected tINTEGER, expecting tSTRING_CONTENT or tSTRING_DBEG or tSTRING_DVAR or tSTRING_END
+[0].methods.include?(:0)
+
+irb(main):015:0> animals = ['lion', 'tiger', 'bears']
+=> ["lion", "tiger", "bears"]
+irb(main):016:0> puts animals
+lion
+tiger
+bears
+=> nil
+
+irb(main):017:0> animals[0]
+=> "lion"
+irb(main):018:0> animals[1]
+=> "tiger"
+irb(main):019:0> animals[10]
+=> nil
+irb(main):020:0> animals[-1]
+=> "bears"
+irb(main):021:0> animals[-2]
+=> "tiger"
+irb(main):022:0> animals[-3]
+=> "lion"
+irb(main):023:0> animals[1..2]
+=> ["tiger", "bears"]
+irb(main):024:0> (0..1).class
+=> Range
+
+irb(main):025:0> animals.push('cheetah')
+=> ["lion", "tiger", "bears", "cheetah"]
+irb(main):026:0> animals.pop
+=> "cheetah"
+irb(main):027:0> animals
+=> ["lion", "tiger", "bears"]
+irb(main):028:0> animals.pop
+=> "bears"
+irb(main):029:0> animals
+=> ["lion", "tiger"]
+irb(main):030:0> animals.push('cheetah')
+=> ["lion", "tiger", "cheetah"]
+irb(main):031:0> animals
+=> ["lion", "tiger", "cheetah"]
+
+
