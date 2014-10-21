@@ -1,0 +1,178 @@
+1) Print all elements found at odd-numbered positions in an array, e.g. for the array
+a = [5,4,7,8,3] print 4 and 8 (array indexes start with 0).
+
+irb(main):049:0> i =0
+=> 0
+irb(main):050:0> i
+=> 0
+irb(main):051:0> while i < a.length
+irb(main):052:1> i = i + 1
+irb(main):053:1> if i.odd?
+irb(main):054:2>  puts a[i]
+irb(main):055:2> end
+irb(main):056:1> end
+4
+8
+
+2) Write a method copyodd that gets an array as a parameter and returns the elements
+found at odd positions in a new, smaller array. For the example above, the array [4,8]
+would be returned.
+
+irb(main):001:0> def copyodd(array)
+irb(main):002:1> i = 0
+irb(main):003:1> oddIndex = []
+irb(main):004:1> while i < array.length
+irb(main):005:2> i = i + 1
+irb(main):006:2> if i.odd?
+irb(main):007:3> oddIndex.push(array[i])
+irb(main):008:3> end
+irb(main):009:2> end
+irb(main):010:1> return oddIndex
+irb(main):011:1> end
+=> nil
+irb(main):012:0> a = [5,4,7,8,3]
+=> [5, 4, 7, 8, 3]
+irb(main):013:0> copyodd(a)
+=> [4, 8, nil]
+
+// re-writing code. Withnot print nil value
+irb(main):049:0> def copyodd(array)
+irb(main):050:1> i = 1
+irb(main):051:1> oddNum = []
+irb(main):052:1> while i < array.length
+irb(main):053:2> if i.odd?
+irb(main):054:3> oddNum.push(array[i])
+irb(main):055:3> end
+irb(main):056:2> i = i + 1
+irb(main):057:2> end
+irb(main):058:1> return oddNum
+irb(main):059:1> end
+=> nil
+irb(main):060:0> a
+=> [5, 4, 7, 8, 3]
+irb(main):061:0> copyodd(a)
+=> [4, 8]
+
+3) a. Write a program that opens a file and outputs the file line by line with the line number
+in front of the line, e.g.
+			   1: x = 0
+			   2: while x < y
+			   3: z compute(x)
+			   4: ...
+
+irb(main):072:0> File.open('forever.txt','r') do |f1|
+irb(main):073:1* row = 1
+irb(main):074:1> while line = f1.gets
+irb(main):075:2> puts row.to_s + ": " + line
+irb(main):076:2> row = row + 1
+irb(main):077:2> end
+irb(main):078:1> end
+1: Forever
+2: Forever we remain oblivious to the future, 
+3: lost to the past and enduring our torture. 
+4: Forever we take chances to settle our scores, 
+5: losing some battles and winning some wars. 
+6: Forever praying out loud hoping someone will hear, 
+7: forever crying softly but never shedding a tear. 
+8: Forever exists behind a disguise, 
+9: but the belief in forever keeps our hearts alive.
+=> nil
+
+3) b. Hints: File.new(filename, mode) creates a File object and opens a file named filename
+	according to the specified mode.
+		For example, f = File.new("testfile", "r")
+	opens a file named testfile in read-only mode. The method gets fetches a line from
+	the file (returns false if there are no more lines), while the method close closes the file
+
+irb(main):147:0> File.new("testfile.txt","w")
+=> #<File:testfile.txt>
+irb(main):148:0> f = File.new("testfile.txt","r")
+=> #<File:testfile.txt>
+irb(main):149:0> f
+=> #<File:testfile.txt>
+irb(main):150:0> if f.gets == nil
+irb(main):151:1> puts false
+irb(main):152:1> end
+false
+=> nil
+irb(main):153:0> f.close
+=> nil
+irb(main):154:0> f
+=> #<File:testfile.txt (closed)>
+
+// adding text into testfile.txt 
+
+irb(main):034:0> f = File.open("testfile","w")
+=> #<File:testfile>
+irb(main):035:0> f << "a b c\n"
+=> #<File:testfile>
+irb(main):036:0> f << "d e f g\n"
+=> #<File:testfile>
+irb(main):037:0> f.close
+=> nil
+
+#check what was added
+irb(main):038:0> f = File.open("testfile","r")
+=> #<File:testfile>
+irb(main):039:0> while line = f.gets
+irb(main):040:1> puts line
+irb(main):041:1> end
+a b c
+d e f g
+=> nil
+
+# addind one more line
+irb(main):042:0> f = File.open("testfile","a+")
+=> #<File:testfile>
+irb(main):043:0> f << "x x y z"
+=> #<File:testfile>
+irb(main):044:0> f.close
+=> nil
+
+# checking if the last line added
+irb(main):045:0> f = File.open("testfile","r")
+=> #<File:testfile>
+irb(main):046:0> while line = f.gets
+irb(main):047:1> puts line
+irb(main):048:1> end
+a b c
+d e f g
+x x y z
+=> nil
+
+#method file() read and print file
+irb(main):058:0> def file(file)
+irb(main):059:1> while line = file.gets
+irb(main):060:2> puts line
+irb(main):061:2> end
+irb(main):062:1> end
+ 
+
+4) Write a program that opens a file and finds duplicate words following each other in a
+   line. If you find a duplicate word, print the line number and the word. For example, the file
+	a b c
+	d e f g
+	x x y z
+		should return 3: x
+
+# method to get duplicate value in each line 
+# parameter is file
+irb(main):070:0> def getDuplicateValue(file)
+irb(main):071:1> dup = []
+irb(main):072:1> while line = file.gets
+irb(main):073:2> arr = line.split
+irb(main):074:2> dup = dup + arr.select{|e| arr.count(e) > 1}.uniq
+irb(main):075:2> end
+irb(main):076:1> return dup
+irb(main):077:1> end
+
+# to test method getDuplicateValue()
+irb(main):078:0> f = File.open("testfile.txt","r")
+=> #<File:testfile.txt>
+irb(main):079:0> f
+irb(main):080:0> getDuplicateValue(f)
+=> ["x"]
+irb(main):081:0> f.close
+=> nil
+
+
