@@ -1,0 +1,113 @@
+irb(main):001:0> numbers = {1 => 'one', 2 => 'two', 3 => 'three'}
+=> {1=>"one", 2=>"two", 3=>"three"}
+irb(main):002:0> numbers[1]
+=> "one"
+irb(main):003:0> numbers[3]
+=> "three"
+
+irb(main):004:0> stuff = {:array => [1,2,3,4], :string => 'hello world!'}
+=> {:array=>[1, 2, 3, 4], :string=>"hello world!"}
+
+irb(main):007:0> stuff [:string]
+=> "hello world!"
+irb(main):008:0> stuff [:array]
+=> [1, 2, 3, 4]
+irb(main):009:0> stuff [:array[1]]
+=> nil
+
+irb(main):011:0> stuff [:array][1]
+=> 2
+irb(main):012:0> stuff [:array][4]
+=> nil
+irb(main):013:0> stuff [:array][3]
+=> 4
+irb(main):014:0> stuff [:string][0]
+=> "h"
+irb(main):015:0> stuff [:string][1]
+=> "e"
+irb(main):016:0> stuff [:string][1..5]
+=> "ello "
+irb(main):017:0> stuff [:string][0..5]
+=> "hello "
+irb(main):018:0> stuff [:string][0..4]
+=> "hello"
+irb(main):019:0> stuff [:array].push(5)
+=> [1, 2, 3, 4, 5]
+
+irb(main):024:0> stuff [:string].pop
+NoMethodError: undefined method `pop' for "hello world!":String
+	from (irb):24
+	from /usr/bin/irb:12:in `<main>'
+irb(main):025:0> stuff [:array].pop
+=> 5
+# you can push() or pop array but you cannot push or pop string
+irb(main):030:0> stuff [:array].push(5)
+=> [1, 2, 3, 4, 5]
+irb(main):032:0> stuff [:string].push("david")
+NoMethodError: undefined method `push' for "hello world!":String
+	from (irb):32
+	from /usr/bin/irb:12:in `<main>'
+
+# to add something to stuff string
+irb(main):037:0> stuff [:string]
+=> "hello world!"
+irb(main):038:0> stuff [:string] = stuff [:string] + " David"
+=> "hello world! David"
+irb(main):039:0> stuff [:string]
+=> "hello world! David"
+irb(main):040:0> 
+
+#each sring has uniqu identical symbol that can by chech by object_id
+irb(main):040:0> 'string'.object_id
+=> 13812000
+irb(main):041:0> 'string'.object_id
+=> 13803340
+irb(main):042:0> 'string'.object_id
+=> 13793020
+irb(main):043:0> 'string'.object_id
+=> 13784140
+
+# CODE BLOCKS AND YIELD
+
+irb(main):077:0> 4.times {puts 'hiya there, kiddo'}
+hiya there, kiddo
+hiya there, kiddo
+hiya there, kiddo
+hiya there, kiddo
+=> 4
+
+irb(main):078:0> animals = ['lion and ','tigers and ','bears ','oh my '] 
+=> ["lion and ", "tigers and ", "bears ", "oh my "]
+irb(main):079:0> animals.each{|a| puts a}
+lion and 
+tigers and 
+bears 
+oh my 
+
+irb(main):006:0> def call_block(&block) #line 87
+irb(main):007:1> block.call
+irb(main):008:1> end
+=> nil
+
+irb(main):009:0> call_block{puts 'Hello block'}
+Hello block
+=> nil
+
+# but!
+irb(main):010:0> pass_block{puts 'Hello, block}
+irb(main):011:1' 
+irb(main):011:1> nil
+
+# pass_ block method has not been found. It needs to be created such as:
+irb(main):004:0> def pass_block(&block)
+irb(main):005:1> call_block(&block) # it call line 87
+irb(main):006:1> end
+=> nil
+
+irb(main):007:0> pass_block{puts 'Hello, block'}
+Hello, block
+=> nil
+
+
+
+
