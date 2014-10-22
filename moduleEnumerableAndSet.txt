@@ -1,0 +1,125 @@
+irb(main):023:0> 'a'<=>'b'
+=> -1
+irb(main):024:0> 'a'<=>'a'
+=> 0
+irb(main):025:0> 'b'<=>'a'
+=> 1
+irb(main):026:0> 1<=>2
+=> -1
+irb(main):027:0> 1<=>1
+=> 0
+irb(main):028:0> 2<=>1
+=> 1
+
+irb(main):029:0> a = [5, 4, 3, 2, 1]
+=> [5, 4, 3, 2, 1]
+irb(main):030:0> a.sort
+=> [1, 2, 3, 4, 5]
+irb(main):031:0> a
+=> [5, 4, 3, 2, 1]
+irb(main):032:0> a.any? {|i| i>6}
+=> false
+irb(main):033:0> a.any? {|i| i>4}
+=> true
+irb(main):034:0> a.all? {|i| i>4}
+=> false
+irb(main):035:0> a.all? {|i| i>0}
+=> true
+irb(main):036:0> a.all? {|i| i>1}
+=> false
+irb(main):037:0> a.pop
+=> 1
+irb(main):038:0> a
+=> [5, 4, 3, 2]
+irb(main):039:0> a.all? {|i| i>1}
+=> true
+irb(main):040:0> a.push(1)
+=> [5, 4, 3, 2, 1]
+irb(main):041:0> a.collect {|i| i * 2}
+=> [10, 8, 6, 4, 2]
+irb(main):042:0> a.collect {|i| i * 10}
+=> [50, 40, 30, 20, 10]
+irb(main):043:0> a
+=> [5, 4, 3, 2, 1]
+irb(main):044:0> a.collect {|i| i % 2 == 0} # even
+=> [false, true, false, true, false]
+irb(main):045:0> a.select {|i| i % 2 == 0} # even
+=> [4, 2]
+irb(main):046:0> a.collect {|i| i % 2 == 1} # odd
+=> [true, false, true, false, true]
+irb(main):047:0> a.select {|i| i % 2 == 1} # odd
+=> [5, 3, 1]
+irb(main):048:0> a.max
+=> 5
+irb(main):049:0> a.min
+=> 1
+irb(main):050:0> a.member?(2)
+=> true
+irb(main):051:0> a.member?(6)
+=> false
+
+
+irb(main):001:0> x = [5,3,4,1]
+=> [5, 3, 4, 1]
+
+irb(main):002:0> x.inject(0) {|sum, i| sum + i}
+=> 13
+irb(main):003:0> x.inject {|sum, i| sum + i}
+=> 13
+# steps:
+irb(main):012:0> x.inject(0) do |sum, i|
+irb(main):013:1* puts "sum: #{sum} i: #{i} sum + i: #{sum + i}"
+irb(main):014:1> sum + i
+irb(main):015:1> end
+sum: 0 i: 5 sum + i: 5
+sum: 5 i: 3 sum + i: 8
+sum: 8 i: 4 sum + i: 12
+sum: 12 i: 1 sum + i: 13
+=> 13
+
+irb(main):004:0> x.inject {|sum, i| sum * i}
+=> 60
+# steps:
+irb(main):020:0> x.inject do |sum, i|
+irb(main):021:1* puts "sum: #{sum} i: #{i} sum * i: #{sum * i}"
+irb(main):022:1> sum * i
+irb(main):023:1> end
+sum: 5 i: 3 sum * i: 15
+sum: 15 i: 4 sum * i: 60
+sum: 60 i: 1 sum * i: 60
+=> 60
+
+irb(main):005:0> x.inject {|sum, i| sum - i}
+=> -3
+#steps:
+irb(main):024:0> x.inject do |sum, i|
+irb(main):025:1* puts "sum: #{sum} i: #{i} sum - i: #{sum - i}"
+irb(main):026:1> sum - i
+irb(main):027:1> end
+sum: 5 i: 3 sum - i: 2
+sum: 2 i: 4 sum - i: -2
+sum: -2 i: 1 sum - i: -3
+=> -3
+
+irb(main):006:0> x.inject {|sum, i| sum / i}
+=> 0
+irb(main):007:0> x.inject(1) {|sum, i| sum / i}
+=> 0
+#steps:
+irb(main):028:0> x.inject do |sum, i|
+irb(main):029:1* puts "sum: #{sum} i: #{i} sum / i: #{sum / i}"
+irb(main):030:1> sum / i
+irb(main):031:1> end
+sum: 5 i: 3 sum / i: 1
+sum: 1 i: 4 sum / i: 0
+sum: 0 i: 1 sum / i: 0
+=> 0
+
+irb(main):046:0> y
+=> [12, 3, 2]
+irb(main):042:0> y.inject do |sum, i|
+irb(main):043:1* puts "sum: #{sum} i: #{i} sum / i: #{sum / i}"
+irb(main):044:1> sum / i
+irb(main):045:1> end
+sum: 12 i: 3 sum / i: 4
+sum: 4 i: 2 sum / i: 2
